@@ -1,7 +1,6 @@
-use std::process::{ Command };
+mod hedge;
 
 fn main() {
-    Command::new("hedge://open")
-                .spawn()
-                .expect("Failed to open Hedge.");
+    hedge::action("hedge://open/")
+        .expect("Failed to open hedge.");
 }
