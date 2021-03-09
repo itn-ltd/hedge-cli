@@ -5,10 +5,10 @@ pub struct SetSourceCommand;
 
 impl SetSourceCommand {
     pub fn execute(args: &ArgMatches) -> Result<()> {
-        let api_key = args.value_of("label");
+        let label = args.value_of("label");
+        let sources = args.values_of("sources").expect("");
 
-        hedge::action("")
-
-        Ok(())
+        hedge::set_source(sources, label);
+        Ok(());
     }
-}
+};
