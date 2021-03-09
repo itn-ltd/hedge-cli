@@ -1,6 +1,6 @@
 mod hedge;
 
 fn main() {
-    hedge::action("hedge://open/")
+    hedge::action("open")
         .expect("Failed to open hedge.");
 }
