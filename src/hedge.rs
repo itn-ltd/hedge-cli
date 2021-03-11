@@ -17,8 +17,29 @@ fn action(action_str: &str) -> Result {
         .map(|_| ())
 }
 
-pub fn open() -> Result {
-    action("open")
+fn action_and_wait(action_str: &str) -> Result {
+    let url: String = format!("{}{}", HEDGE_URL_PREFIX, action_str);
+
+    Command::new("cmd")
+        .arg("/C")
+        .arg("start")
+        .arg("/WAIT")
+        .arg(url)
+        .spawn()
+        .and_then(|mut proc| proc.wait())
+        .map(|_| ())
+}
+
+pub fn actions(actions_str: &str) -> Result {
+    action("actions")
+}
+
+pub fn open(wait_for_exit: Option<bool>) -> Result {
+    if let Some(true) = wait_for_exit {
+        action_and_wait("open")
+    } else {
+        action("open")
+    }
 }
 
 pub fn quit() -> Result {

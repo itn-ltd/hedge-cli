@@ -1,16 +1,22 @@
 use crate::hedge;
-use clap::{ App, ArgMatches, SubCommand, Result };
+use clap::{ App, Arg, ArgMatches, SubCommand, Result };
 
 pub struct OpenCommand;
 
 impl OpenCommand {
     pub fn from_name(name: &str) -> App {
         SubCommand::with_name(name)
+            .arg(Arg::with_name("wait")
+                .short("w")
+                .long("wait")
+                .takes_value(false)
+                .required(false))
             .about("Opens Hedge.")
     }
 
     pub fn execute(args: &ArgMatches) -> Result<()> {
-        hedge::open().map_err(|err| clap::Error::from(err))
+        let wait = if args.is_present("wait") { Some(true) } else { None };
+        hedge::open(wait).map_err(|err| clap::Error::from(err))
     }
 }
 
