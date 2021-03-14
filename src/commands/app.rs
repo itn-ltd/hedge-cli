@@ -15,7 +15,7 @@ impl OpenCommand {
     }
 
     pub fn execute(args: &ArgMatches) -> Result<()> {
-        let wait = if args.is_present("wait") { Some(true) } else { None };
+        let wait = args.is_present("wait");
         hedge::open(wait).map_err(|err| clap::Error::from(err))
     }
 }
