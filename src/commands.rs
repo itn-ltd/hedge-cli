@@ -1,9 +1,10 @@
 pub mod transfer;
 pub mod app;
+pub mod settings;
 
 use crate::hedge;
 use clap::{ App, Arg, ArgMatches, SubCommand, Result };
-use std::{fs};
+use std::fs;
 
 pub struct ActionsCommand;
 

@@ -112,3 +112,15 @@ pub fn set_destination(destination: &str) -> Result {
 pub fn add_transfers() -> Result {
     Command::for_action("addTransfers").execute()
 }
+
+pub fn set_folder_format(format: &str) -> Result {
+    Command::for_action_with_params("setFolderFormat", &[("format", format)]).execute()
+}
+
+pub fn set_incrementer(incrementer: &str) -> Result {
+    Command::for_action_with_params("setIncrementer", &[("incrementer", incrementer)]).execute()
+}
+
+pub fn set_preferences(preferences: &str) -> Result {
+    Command::for_action_with_params("setPreferences", &[("preferences", preferences)]).execute()
+}

@@ -1,5 +1,6 @@
 use clap::{ App, AppSettings, Result };
 use self::commands::{ ActionsCommand };
+use self::commands::settings::{ SetFolderFormatCommand, SetIncrementerCommand, SetPreferencesCommand };
 use self::commands::app::{ OpenCommand, QuitCommand, RestartCommand, UpdateCommand };
 use self::commands::transfer::{ SetSourceCommand, ResetDisksCommand, SetDestinationCommand, AddTransfersCommand };
 
@@ -9,7 +10,7 @@ mod hedge;
 fn main() -> Result<()> {
     let app = App::new("Hedge CLI")
         .version("0.1.0")
-        .author("Nick Moores <nick.moores@itn.co.uk>")
+        .author("ITN Developers <developers@itn.co.uk>")
         .about("CLI for interacting with the Hedge application.")
         .setting(AppSettings::ArgRequiredElseHelp)
         .subcommand(OpenCommand::from_name("open"))
@@ -20,6 +21,9 @@ fn main() -> Result<()> {
         .subcommand(ResetDisksCommand::from_name("reset"))
         .subcommand(SetDestinationCommand::from_name("destination"))
         .subcommand(AddTransfersCommand::from_name("transfers"))
+        .subcommand(SetFolderFormatCommand::from_name("format"))
+        .subcommand(SetIncrementerCommand::from_name("incrementer"))
+        .subcommand(SetPreferencesCommand::from_name("preferences"))
         .subcommand(ActionsCommand::from_name("actions"));
 
     match app.get_matches().subcommand() {
@@ -31,6 +35,9 @@ fn main() -> Result<()> {
         ("reset", Some(cmd)) => ResetDisksCommand::execute(cmd),
         ("destination", Some(cmd)) => SetDestinationCommand::execute(cmd),
         ("transfers", Some(cmd)) => AddTransfersCommand::execute(cmd),
+        ("format", Some(cmd)) => SetFolderFormatCommand::execute(cmd),
+        ("incrementer", Some(cmd)) => SetIncrementerCommand::execute(cmd),
+        ("preferences", Some(cmd)) => SetPreferencesCommand::execute(cmd),
         ("actions", Some(cmd)) => ActionsCommand::execute(cmd),
         _ => Ok(())
     }
